@@ -43,8 +43,9 @@ function test(data) {
 <script src="http://portal.domain.com/api/cross/getsign?callback=test"></script>
 ```
 
-
 Further reading:
-[Practical JSONP Injection](https://securitycafe.ro/2017/01/18/practical-jsonp-injection/)
+- [Practical JSONP Injection](https://securitycafe.ro/2017/01/18/practical-jsonp-injection/)
+- [Tutorial Five: Bypassing CSRF protection](https://zseano.com/tutorials/5.html)
+- [Backdoor of All Flickr API Calls by XSSI](https://ngailong.wordpress.com/2017/08/11/open-door-to-all-flickr-api-calls-by-xssi/)
 
 
