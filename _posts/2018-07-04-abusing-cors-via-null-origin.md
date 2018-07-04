@@ -32,3 +32,4 @@ Further reading:
 - [CORS misconfigurations on a large scale](https://web-in-security.blogspot.com/2017/07/cors-misconfigurations-on-large-scale.html)
 - [CORS Exploitation: Data exfiltration when allowed origin is set to NULL](https://yassineaboukir.com/blog/cors-exploitation-data-exfiltration-when-allowed-origin-is-set-to-null/)
 - [CORS Misconfigurations Explained](https://blog.detectify.com/2018/04/26/cors-misconfigurations-explained/)
+- [Advanced CORS Exploitation Techniques](https://www.sxcurity.pro/advanced-cors-techniques/)
