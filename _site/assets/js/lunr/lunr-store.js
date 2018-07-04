@@ -1,6 +1,6 @@
 var store = [{
-        "title": "Welcome to Jekyll!",
-        "excerpt":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when...","categories": [],
+        "title": "Abusing JSONP to grab user credentials",
+        "excerpt":"I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow: GET /api/cross/getsign?callback=test HTTP/1.1Host: portal.domain.comReferer: http://www.otherdomain.comHTTP/1.1 200 OKtest(crossToken)POST /api/cross/getsign HTTP/1.1Host: www.otherdomain.comcrossToken=[crossToken]HTTP/1.1 200 OKset-cookie: session=xxxxxxxxxxxxxxxxxxxxxxxThe company prevents the JSONP injection via referer check. some common referer check byapss tricks: notdomian.com domain.com.evil.com evil.com/domain.com send a blank refererFortunately,...","categories": [],
         "tags": [],
-        "url": "http://localhost:4000/2018/07/03/welcome-to-jekyll.html",
+        "url": "http://localhost:4000/2018/07/04/abusing-jsonp-to-grab-user-credentials.html",
         "teaser":null}]

@@ -254,12 +254,14 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/2018/07/03/welcome-to-jekyll.html" rel="permalink">Welcome to Jekyll!
+        <a href="/2018/07/04/abusing-jsonp-to-grab-user-credentials.html" rel="permalink">Abusing JSONP to grab user credentials
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different wa...</p>
+    <p class="archive__item-excerpt" itemprop="description">I find that a company implements cross-domain authentication using JSONP and cookies.There is the login flow:
+```
+GET /api/cross/getsign?callback=test HTTP/1...</p>
   </article>
 </div>
 
