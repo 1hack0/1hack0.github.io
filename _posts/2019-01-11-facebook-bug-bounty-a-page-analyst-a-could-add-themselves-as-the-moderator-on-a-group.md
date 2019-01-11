@@ -24,4 +24,4 @@ query_params={"0":{"user_id":"UserID","admin_type":"MODERATOR","actor_id":"PageI
 - Jan 9, 2019 - Fixed by Facebook
 - Jan 11, 2019 - Bounty Awarded by Facebook
 
-[![](http://img.youtube.com/vi/1_BJu-nLFoM/0.jpg)](http://www.youtube.com/watch?v=1_BJu-nLFoM "")
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1_BJu-nLFoM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
