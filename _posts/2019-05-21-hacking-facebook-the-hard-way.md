@@ -3,6 +3,9 @@ layout: single
 title:  "Hacking Facebook the Hard Way"
 ---
 
+Join Unofficial Facebook Bug Bounty Group
+<https://www.facebook.com/groups/bugbountygroup/>
+
 ## Asset
 * Facebook Whitehat Information <https://www.facebook.com/whitehat/info/>
 * Facebook Android APKs <https://apkmirror.com/apk/facebook-2/>
@@ -38,5 +41,3 @@ title:  "Hacking Facebook the Hard Way"
 * Bugreader <https://bugreader.com>
 * Philippe Harewood <https://philippeharewood.com>
 * Josip Franjković <https://www.josipfranjkovic.com>
-
-**PS: Join Unofficial Facebook Bug Bounty Group** <https://www.facebook.com/groups/bugbountygroup/>
