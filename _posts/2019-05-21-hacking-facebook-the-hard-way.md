@@ -29,8 +29,8 @@ title:  "Hacking Facebook the Hard Way"
 
 ## Write-ups
 * <https://philippeharewood.com/facebookbugbounties.txt>
-* <https://github.com/1hack0/Facebook-Bug-Bounty-Write-ups>
-* <https://airtable.com/shrjEc0BV0VXpmEqN>
+* 2017-2018 Facebook Write-ups <https://github.com/1hack0/Facebook-Bug-Bounty-Write-ups>
+* 2019 Facebook Write-ups <https://airtable.com/shrjEc0BV0VXpmEqN>
 
 ## Recommended Blogs
 * <https://ysamm.com>
