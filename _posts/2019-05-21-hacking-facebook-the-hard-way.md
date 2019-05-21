@@ -25,7 +25,7 @@ title:  "Hacking Facebook the Hard Way"
 ## SSL Pinning Bypass
 * <https://github.com/phwd/OneForAllFacebook>
 * <https://www.facebook.com/notes/facebook-bug-bounty/security-testing-for-mobile-apps-made-easy/2528930930454451/>
-* <https://www.youtube.com/watch?v=BuQJuD2W6wg (Testing Facebook Mobile Application on Nox Player | For Security Researcher)>
+* Testing Facebook Mobile Application on Nox Player <https://www.youtube.com/watch?v=BuQJuD2W6wg>
 
 ## Write-ups
 * <https://philippeharewood.com/facebookbugbounties.txt>
