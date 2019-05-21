@@ -3,7 +3,7 @@ layout: single
 title:  "Hacking Facebook the Hard Way"
 ---
 
-*Join Unofficial Facebook Bug Bounty Group* <https://www.facebook.com/groups/bugbountygroup/>
+**Join Unofficial Facebook Bug Bounty Group** <https://www.facebook.com/groups/bugbountygroup/>
 
 ## Asset
 * Facebook Whitehat Information <https://www.facebook.com/whitehat/info/>
