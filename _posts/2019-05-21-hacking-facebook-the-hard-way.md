@@ -3,9 +3,11 @@ layout: single
 title:  "Hacking Facebook the Hard Way"
 ---
 
+*Join Unofficial Facebook Bug Bounty Group* <https://www.facebook.com/groups/bugbountygroup/>
+
 ## Asset
 * Facebook Whitehat Information <https://www.facebook.com/whitehat/info/>
-* Facebook APKs - APKMirror <https://apkmirror.com/apk/facebook-2/>
+* Facebook Android APKs <https://apkmirror.com/apk/facebook-2/>
 * Facebook on the App Store <https://itunes.apple.com/us/developer/facebook-inc/id284882218>
 * Over 41 Facebook Products & Services You Probably Don’t Know <https://www.minterest.com/list-of-all-facebook-products-and-services/>
 * List of mergers and acquisitions by Facebook <https://en.wikipedia.org/wiki/List_of_mergers_and_acquisitions_by_Facebook>
