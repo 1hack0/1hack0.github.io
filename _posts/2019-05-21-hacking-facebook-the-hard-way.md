@@ -39,4 +39,4 @@ title:  "Hacking Facebook the Hard Way"
 * Philippe Harewood <https://philippeharewood.com>
 * Josip Franjković <https://www.josipfranjkovic.com>
 
-PS: **Join Unofficial Facebook Bug Bounty Group** <https://www.facebook.com/groups/bugbountygroup/>
+**PS: Join Unofficial Facebook Bug Bounty Group** <https://www.facebook.com/groups/bugbountygroup/>
