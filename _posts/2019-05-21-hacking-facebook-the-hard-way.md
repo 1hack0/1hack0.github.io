@@ -26,7 +26,7 @@ title:  "Hacking Facebook the Hard Way"
 * https://github.com/phwd/OneForAllFacebook
 * https://www.facebook.com/notes/facebook-bug-bounty/security-testing-for-mobile-apps-made-easy/2528930930454451/
 * Testing Facebook Mobile Application on Nox Player
-https://www.youtube.com/watch?v=BuQJuD2W6wg
+  https://www.youtube.com/watch?v=BuQJuD2W6wg
 
 ## Write-ups
 * https://philippeharewood.com/facebookbugbounties.txt
